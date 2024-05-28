@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 using namespace std;
+void init();
 
 // Node sınıfı, bağlı liste için kullanılacak temel düğüm yapısı
 class Node {
@@ -12,7 +13,7 @@ public:
     Node(int d) : data(d), next(nullptr) {} // Yapıcı fonksiyon
 };
 
-// Yığın (Stack) sınıfı
+// Yığın (Stack) sınıfı (Last In, First Out)
 class Stack {
 private:
     Node* top; // Yığının en üstündeki düğüm
@@ -48,7 +49,7 @@ public:
         }
     }
 
-    // Yıkıcı fonksiyon
+    // Yıkıcı fonksiyon (cache memory clear icin)
     ~Stack() {
         clear();
     }
@@ -527,10 +528,56 @@ public:
         cout << endl;
     }
 };
-// Ana program
-int main() {
-    int choice;
+
+
+
+void yiginMenu() {
     Stack stack;
+
+    int stackChoice;
+    do {
+        cout << "1. Yigina Eleman Ekle\n";
+        cout << "2. Yigindan Eleman Cikar\n";
+        cout << "3. Yigini temizle\n";
+        cout << "4. Yiginin En Ustundeki Elemanu Goster\n";
+        cout << "5. Yigini Goster\n";
+        cout << "6. Yigini eleman sayilarini Goster\n";
+        cout << "Ana menu'ye donmek icin her hangi bir sayi giriniz: \n";
+        cout << "Seciminiz: ";
+        cin >> stackChoice;
+        switch (stackChoice) {
+        case 1:
+            int stackData;
+            cout << "Eklenecek eleman: ";
+            cin >> stackData;
+            stack.push(stackData);
+            break;
+        case 2:
+            stack.pop();
+            break;
+        case 3:
+            stack.clear();
+            break;
+        case 4:
+            stack.peek();
+            break;
+        case 5:
+            stack.display();
+            break;
+        case 6:
+            stack.size();
+            cout << "Yigindaki eleman sayisi: " << stack.size() << endl;
+            break;
+        default:
+            cout << "Ana menuye don" << endl;
+            init();
+            break;
+        }
+    } while (stackChoice != 5);
+}
+
+void init() {
+    int choice;
     Queue queue;
     SinglyLinkedList linkedList;
     BinaryTree binaryTree;
@@ -550,42 +597,7 @@ int main() {
         switch (choice) {
         case 1: {
             // Yığın menüsü
-            int stackChoice;
-            do {
-                cout << "1. Yigina Eleman Ekle\n";
-                cout << "2. Yigindan Eleman Cikar\n";
-                cout << "3. Yigini temizle\n";
-                cout << "4. Yiginin En Ustundeki Elemanu Goster\n";
-                cout << "5. Yigini Goster\n";
-                cout << "6. Yigini eleman sayilarini Goster\n";
-                cout << "7. Ana Menuye Don\n";
-                cout << "Seciminiz: ";
-                cin >> stackChoice;
-                switch (stackChoice) {
-                case 1:
-                    int stackData;
-                    cout << "Eklenecek eleman: ";
-                    cin >> stackData;
-                    stack.push(stackData);
-                    break;
-                case 2:
-                    stack.pop();
-                    break;
-                case 3:
-                    stack.clear();
-                    break;
-                case 4:
-                    stack.peek();
-                    break;
-                case 5:
-                    stack.display();
-                    break;
-                case 6:
-                    stack.size();
-                    cout << "Yigindaki eleman sayisi: " << stack.size() << endl;
-                    break;
-                }
-            } while (stackChoice != 5);
+            yiginMenu();
             break;
         }
         case 2: {
@@ -648,16 +660,18 @@ int main() {
                     int value;
                     int data;
                     int prevData = 0;
-                    cout << "Ekleme türünü seçiniz:\n";
+                    cout << "Ekleme turunu seciniz:\n";
                     cout << "1- Basa eleman ekle\n";
                     cout << "2- Sona eleman ekle\n";
-                    cout << "3- Liste işlemlerine geri dön\n";
+                    cout << "3- Liste islemlerine geri don\n";
                     cout << "Seçiminiz: ";
                     cin >> addChoice;
 
                     if (addChoice == 1) {
-                        cout << "Eklenecek eleman: ";
+                        cout << "Eklenecek eleman: \n";
                         cin >> data;
+                        cout << "pervdata : ";
+                        cin >> prevData;
                         linkedList.insertAfter(prevData, data);
                     }
 
@@ -676,17 +690,17 @@ int main() {
                         cout << "Gecersiz secim!" << endl;
                     }
                     break;
-                    
+
                 }
 
                 case 2: {
                     int addChoice;
                     do {
-                        cout << "Ekleme türünü seçiniz:\n";
+                        cout << "Ekleme turunu seciniz:\n";
                         cout << "1- Basatan eleman silme\n";
                         cout << "2- Sondan eleman silme\n";
-                        cout << "3- Liste işlemlerine geri dön\n";
-                        cout << "Seçiminiz: ";
+                        cout << "3- Liste islemlerine geri don\n";
+                        cout << "Seciminiz: ";
                         cin >> addChoice;
                         switch (addChoice) {
                         case 1: {
@@ -818,7 +832,7 @@ int main() {
                     cout << "Ana menuye donuluyor..." << endl;
                     // Burada ana menüye dönmek için ek bir kod yazabilirsiniz.
                     break;
-       
+
                 default:
                     cout << "Gecersiz secim. Tekrar deneyin." << endl;
                     break;
@@ -834,6 +848,16 @@ int main() {
             break;
         }
     } while (choice != 6);
+
+}
+
+
+// Ana program
+int main() {
+
+    
+
+    init();
 
     return 0;
 }
