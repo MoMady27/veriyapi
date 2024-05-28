@@ -705,18 +705,14 @@ void init() {
                         switch (addChoice) {
                         case 1: {
                             int prevData, data;
-                            cout << "Hangi elemandan sonra eklemek istersiniz? ";
-                            cin >> prevData;
-                            cout << "Eklenecek eleman: ";
+                            cout << "Silenecek eleman: ";
                             cin >> data;
-                            linkedList.insertAfter(prevData, data);
+                            linkedList.remove(data);
                             break;
                         }
                         case 2: {
-                            int data;
-                            cout << "Eklenecek eleman: ";
-                            cin >> data;
-                            linkedList.append(data);
+                           
+                            linkedList.removeEnd();
                             break;
                         }
                         }
